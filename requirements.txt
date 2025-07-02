@@ -1,0 +1,6 @@
+apscheduler==3.10.4
+pytz
+psutil
+datetime
+kurigram
+hurry.filesize
