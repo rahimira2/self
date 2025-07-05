@@ -1,6 +1,17 @@
-apscheduler==3.10.4
-pytz
-psutil
-datetime
-kurigram
-hurry.filesize
+# System Dependencies (install via package manager)
+# lua5.3
+# luarocks
+# ffmpeg
+# build-essential (Ubuntu/Debian) or gcc-c++ (CentOS/RHEL)
+
+# Python Dependencies
+yt-dlp>=2023.1.6
+
+# Lua Dependencies (install via luarocks)
+# luasocket
+# lua-cjson  
+# ltn12
+# mime
+
+# Optional Dependencies
+# posix (for signal handling on Unix systems)

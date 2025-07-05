@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 پنل کنترل ربات موزیک</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="background-animation"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="glass-panel header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <h1>ربات موزیک تلگرام</h1>
+                </div>
+                <div class="connection-status" id="connectionStatus">
+                    <div class="status-indicator offline"></div>
+                    <span>آفلاین</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Now Playing -->
+            <section class="glass-panel now-playing">
+                <h2><i class="fas fa-play-circle"></i> در حال پخش</h2>
+                <div class="current-track" id="currentTrack">
+                    <div class="track-info">
+                        <div class="track-image">
+                            <img src="https://via.placeholder.com/80x80/667eea/ffffff?text=🎵" alt="Track Image" id="trackImage">
+                        </div>
+                        <div class="track-details">
+                            <h3 id="trackTitle">هیچ آهنگی در حال پخش نیست</h3>
+                            <p id="trackArtist">-</p>
+                            <div class="track-duration">
+                                <span id="currentTime">0:00</span>
+                                <div class="progress-bar">
+                                    <div class="progress" id="progress"></div>
+                                </div>
+                                <span id="totalTime">0:00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+                        <button class="control-btn play-pause" id="playPauseBtn"><i class="fas fa-play"></i></button>
+                        <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
+                        <button class="control-btn" id="shuffleBtn"><i class="fas fa-random"></i></button>
+                        <button class="control-btn" id="repeatBtn"><i class="fas fa-redo"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Music -->
+            <section class="glass-panel add-music">
+                <h2><i class="fas fa-plus-circle"></i> افزودن موزیک</h2>
+                <div class="add-form">
+                    <div class="input-group">
+                        <input type="text" id="musicInput" placeholder="لینک یوتیوب، اسپاتیفای یا نام آهنگ وارد کنید...">
+                        <button id="addBtn"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-btn" onclick="quickSearch('موزیک آرام')">
+                            <i class="fas fa-leaf"></i> آرام
+                        </button>
+                        <button class="quick-btn" onclick="quickSearch('موزیک شاد')">
+                            <i class="fas fa-laugh"></i> شاد
+                        </button>
+                        <button class="quick-btn" onclick="quickSearch('موزیک غمگین')">
+                            <i class="fas fa-heart-broken"></i> غمگین
+                        </button>
+                        <button class="quick-btn" onclick="quickSearch('موزیک پاپ')">
+                            <i class="fas fa-star"></i> پاپ
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Queue -->
+            <section class="glass-panel queue">
+                <div class="queue-header">
+                    <h2><i class="fas fa-list"></i> صف پخش</h2>
+                    <div class="queue-actions">
+                        <button class="action-btn" id="clearQueueBtn">
+                            <i class="fas fa-trash"></i> پاک کردن
+                        </button>
+                        <button class="action-btn" id="shuffleQueueBtn">
+                            <i class="fas fa-random"></i> بهم زدن
+                        </button>
+                    </div>
+                </div>
+                <div class="queue-list" id="queueList">
+                    <!-- Queue items will be populated here -->
+                </div>
+            </section>
+
+            <!-- Volume Control -->
+            <section class="glass-panel volume-control">
+                <h2><i class="fas fa-volume-up"></i> کنترل صدا</h2>
+                <div class="volume-slider">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                    <i class="fas fa-volume-up"></i>
+                    <span id="volumeValue">50%</span>
+                </div>
+            </section>
+
+            <!-- Statistics -->
+            <section class="glass-panel stats">
+                <h2><i class="fas fa-chart-bar"></i> آمار</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-music"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalTracks">0</span>
+                            <span class="stat-label">آهنگ در صف</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalDuration">0:00</span>
+                            <span class="stat-label">مدت کل</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" id="connectedUsers">0</span>
+                            <span class="stat-label">کاربر متصل</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-play"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" id="playedToday">0</span>
+                            <span class="stat-label">پخش امروز</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="glass-panel footer">
+            <p>&copy; 2024 ربات موزیک تلگرام | ساخته شده با ❤️</p>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="searchModal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3>جستجوی آهنگ</h3>
+                <button class="close-btn" onclick="closeModal('searchModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-results" id="searchResults">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>در حال بارگذاری...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer">
+        <!-- Toast notifications will appear here -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

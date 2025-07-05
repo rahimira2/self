@@ -1,0 +1,39 @@
+[Unit]
+Description=Telegram Music Bot with Glass Web Panel
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=musicbot
+Group=musicbot
+WorkingDirectory=/home/musicbot/telegram-music-bot
+ExecStart=/usr/bin/lua main.lua
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=telegram-music-bot
+
+# Environment variables
+Environment=PATH=/home/musicbot/.luarocks/bin:/usr/local/bin:/usr/bin:/bin
+Environment=LUA_PATH=/home/musicbot/.luarocks/share/lua/5.3/?.lua;/home/musicbot/.luarocks/share/lua/5.3/?/init.lua;;
+Environment=LUA_CPATH=/home/musicbot/.luarocks/lib/lua/5.3/?.so;;
+
+# Security settings
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/home/musicbot/telegram-music-bot/downloads
+ReadWritePaths=/home/musicbot/telegram-music-bot/logs
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
