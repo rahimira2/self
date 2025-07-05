@@ -37,9 +37,19 @@ end
 
 -- Util: استریم فایل صوتی به ویس‌چت با ffmpeg + libtgvoip (TDLib)
 local function stream_to_voice(chat_id, filepath)
-  -- پیاده‌سازی کامل نیازمند تابع‌بندی libtgvoip در tdlua است.
-  -- این تابع فقط یک لاگ نمونه چاپ می‌کند.
-  warn(string.format("[DEV] Streaming %s to chat %s (not implemented)", filepath, chat_id))
+  -- راه‌اندازی پخش با اسکریپت کمکی پایتون (PyTgCalls)
+  -- این اسکریپت مسئول جوین کردن اکانت کاربری به ویس‌چت و استریم فایل است.
+  local cmd = string.format(
+    'python3 stream_helper.py %s "%s" "%s" "%s" "%s"',
+    tostring(chat_id),
+    filepath,
+    tostring(cfg.api_id),
+    cfg.api_hash,
+    cfg.session_string
+  )
+  warn("اجرای: " .. cmd)
+  -- در پس‌زمینه اجرا شود تا بلوک نکند
+  os.execute(cmd .. " &")
 end
 
 -- صف پخش -------------------------------------------------------

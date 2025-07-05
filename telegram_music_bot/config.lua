@@ -18,6 +18,9 @@ return {
   -- نام پوشه دیتابیس سشن TDLib
   session_name   = "user_session",
 
+  -- برای اسکریپت کمکی پایتون (pytgcalls) در صورتی که نمی‌خواهید هر بار لاگین کنید
+  session_string = "YOUR_SESSION_STRING_HERE",
+
   -- مسیر ffmpeg (جهت تبدیل و استریم صدا)
   ffmpeg_path    = "/usr/bin/ffmpeg",
 
